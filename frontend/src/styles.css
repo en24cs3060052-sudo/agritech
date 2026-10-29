@@ -1,0 +1,16 @@
+:root { --soil: #14213d; --field: #1b6f6a; --wheat: #e07a1f; --mist: #eef3f6; }
+body { font-family: 'Mukta', system-ui, sans-serif; background: var(--mist); color: var(--soil); }
+h1, h2, h3, h4, .brand { font-family: 'Bitter', Georgia, serif; }
+.topbar { background: var(--soil); }
+.topbar .brand { color: var(--wheat); font-size: 1.4rem; text-decoration: none; }
+.topbar a.nav-link { color: #dfe6f0; }
+.topbar a.nav-link.active { color: var(--wheat); border-bottom: 2px solid var(--wheat); }
+.btn-field { background: var(--field); color: #fff; border: 0; }
+.btn-field:hover { background: #145652; color: #fff; }
+.panel { background: #fff; border-radius: 6px; padding: 1.25rem; border-left: 4px solid var(--field); }
+.stat { font-family: 'Bitter', serif; font-size: 2rem; color: var(--field); }
+.sev-high { border-left-color: #b3261e; } .sev-medium { border-left-color: var(--wheat); } .sev-low { border-left-color: var(--field); }
+.hero { background: var(--field); color: #fff; min-height: 100vh; }
+.hero .form-control, .hero .form-select { max-width: 360px; }
+:focus-visible { outline: 3px solid var(--wheat); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

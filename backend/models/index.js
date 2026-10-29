@@ -1,0 +1,12 @@
+const m = require('mongoose');
+const R = m.Schema.Types.ObjectId;
+const mk = (n, d) => m.model(n, new m.Schema(d, { timestamps: true }));
+const owner = { type: R, ref: 'User', required: true };
+exports.User = mk('User', { name: { type: String, required: true, trim: true }, email: { type: String, required: true, unique: true, lowercase: true }, password: { type: String, required: true }, role: { type: String, enum: ['farmer', 'admin'], default: 'farmer' }, language: { type: String, default: 'en' } });
+exports.Farm = mk('Farm', { owner, name: { type: String, required: true }, location: { type: String, required: true }, areaAcres: Number, soilType: String });
+exports.Crop = mk('Crop', { owner, farm: { type: R, ref: 'Farm', required: true }, name: { type: String, required: true }, sowingDate: Date, status: { type: String, enum: ['growing', 'harvested', 'failed'], default: 'growing' }, ph: Number, nitrogen: Number, phosphorus: Number, potassium: Number, soilReport: String });
+exports.Resource = mk('Resource', { name: { type: String, required: true }, category: String, price: { type: Number, required: true }, stock: { type: Number, default: 0 } });
+exports.Order = mk('Order', { owner, resource: { type: R, ref: 'Resource', required: true }, resourceName: String, quantity: { type: Number, min: 1, required: true }, total: Number, status: { type: String, enum: ['placed', 'approved', 'shipped', 'delivered', 'rejected'], default: 'placed' } });
+exports.WeatherData = mk('WeatherData', { city: String, temp: Number, humidity: Number, wind: Number, condition: String, forecast: Array });
+exports.Alert = mk('Alert', { title: { type: String, required: true }, message: String, crop: String, severity: { type: String, enum: ['low', 'medium', 'high'], default: 'medium' } });
+exports.Post = mk('Post', { owner, authorName: String, type: { type: String, enum: ['question', 'forum'], default: 'forum' }, title: { type: String, required: true }, body: String, replies: [{ authorName: String, text: String, at: { type: Date, default: Date.now } }] });
